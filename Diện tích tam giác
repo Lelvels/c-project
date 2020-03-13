@@ -1,0 +1,28 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+
+using namespace std;
+
+float acreageCal(float a, float b, float c){
+    //cout << a << " " << b << " " << c << "\n";
+    float p = 0.5*(a+b+c);
+    float S;
+    //cout << "p = " << p << "\n";
+    S = sqrt(p*(p-a)*(p-b)*(p-c));
+    return S;
+}
+
+int main(){
+    float a,b,c;
+    float S;
+    //cout << "Nhap 3 canh tam giac:";
+    cin >> a >> b >> c;
+    if( a<b+c && b<a+c && c<a+b && a>0 && b>0 && c>0){
+        S = acreageCal(a,b,c);
+        cout << fixed << setprecision(2) << S;
+    } else {
+        cout << "invalid";
+    }
+    return 0;
+}
