@@ -1,0 +1,69 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+
+using namespace std;
+
+int mostFrequent(int arr[], int n) 
+{ 
+    // Sort the array 
+    sort(arr, arr + n); 
+  
+    // find the max frequency using linear traversal 
+    int max_count = 1, res = arr[0], curr_count = 1; 
+    for (int i = 1; i < n; i++) { 
+        if (arr[i] == arr[i - 1]) 
+            curr_count++; 
+        else { 
+            if (curr_count > max_count) { 
+                max_count = curr_count; 
+                res = arr[i - 1]; 
+            } 
+            curr_count = 1; 
+        } 
+    } 
+  
+    // If last element is most frequent 
+    if (curr_count > max_count) 
+    { 
+        max_count = curr_count; 
+        res = arr[n - 1]; 
+    } 
+  
+    return res; 
+} 
+
+int main(){
+    int arr[100];
+    int n;
+    cout << "Nhap so luong:";
+    cin >> n;
+    cout << "n = " << n << "\n";
+    for(int i=0; i<n; i++){
+        cout << "Nhap so thu " << i << " cua mang:";
+        cin >> arr[i];
+    }
+    sort(arr, arr + n); 
+    for(int i=0; i<n; i++){
+        cout << "So thu " << i << " cua mang:" << arr[i] << "\n";
+    }
+
+    cout << mostFrequent(arr, n); 
+    return 0;
+}
+
+
+
+//giai thich thuat toan:
+//sap xep toan bo mang sao cho no tu be den lon
+// nếu phần tử sau bằng phần tử trước thì curr_count sẽ tăng 1 đơn vị cho đến khi đếm 
+//đến số lớn hơn thì sẽ có 2 th
+// TH1: nếu curr_count > max_count thì max_count sẽ bằng số đó, chương trình tiếp tục đếm
+//cho đến khi tìm đc max count lơn nhất đồng thời số xuất hiện nhiều nhất sẽ gắn vs res, curr_count trở
+// về 1 và tiếp tục đếm số lần xuất hiện số tiếp theo
+// TH2: nếu curr_count nhỏ hơn max_count, curr_count sẽ trở về 1 và tiếp tục đếm số tiếp theo
+// Nếu đến số cuối cùng, curr_count > max_count thì số cuối cùng đương nhiên là số xuất hiện nhiều nhất.
+
+
+
+
