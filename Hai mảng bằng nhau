@@ -1,0 +1,18 @@
+#include<iostream>
+#include<array>
+using namespace std;
+
+bool compareArray(int a[], int b[],int n){
+    int i;
+    n = 5;
+    for(i=0; i<n ; i++){
+        if(a[i] != b[i]){
+            break;
+        }
+    }
+    if(i == n){
+        return 1;
+    } else {
+        return 0;
+    }
+}
