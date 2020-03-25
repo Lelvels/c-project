@@ -1,0 +1,28 @@
+#include<iostream>
+#include<string>
+#include <sstream>
+using namespace std;
+
+// phương trình có đầu ra là một chuỗi hay là string
+
+string convertDecimalToBinary(int number){
+    int binaryNum[32];
+    string result = "";
+    int i = 0;
+    
+    // thuật toán tìm trên mạng
+    
+    while(number > 0){
+        binaryNum[i] = number % 2;
+        number = number / 2;
+        i++;
+    }
+
+    for(int j = i-1; j >= 0; j--){
+        result = result + std::to_string(binaryNum[j]);
+    }
+    return result;
+}
+
+// std::to_string là hàm đổi biến từ dạng int => dạng string => return cho phương trình trên
+
