@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+
+int computeGcd(int a, int b){
+    int arr[32];
+    arr[0] = b;
+    int i = 1;
+    while (arr[i - 1] != 0) {
+        arr[i] = a % b;
+        a = arr[i - 1];
+        b = arr[i];
+        i++;
+    }
+    return arr[i - 2];
+}
+
+void checkPrimeNumber(int N, bool arr[]) {
+    int j;
+    for (j = 2; j <= N; j++) {
+        arr[j] = true;
+    }
+
+    for (j = 2; j <= N; j++) {
+        if (computeGcd(j, 2) == 2) {
+            arr[j] = false;
+        }
+    }
+
+    arr[2] = true;
+
+    for (j = 3; j <= N; j++) {
+        if (computeGcd(j, 3) == 3) {
+            arr[j] = false;
+        }
+    }
+
+    arr[3] = true;
+
+    for (j = 5; j <= N; j++) {
+        if (computeGcd(j, 5) == 5) {
+            arr[j] = false;
+        }
+    }
+
+    arr[5] = true;
+
+    for (j = 7; j <= N; j++) {
+        if (computeGcd(j, 7) == 7) {
+            arr[j] = false;
+        }
+    }
+
+    arr[7] =  true;
+
+    for (j = 2; j <= N; j++) {
+        if (arr[j] == true) {
+            cout << j << " ";
+        }
+    }
+}
+
+int main() {
+    int N;
+    cin >> N;
+    bool arr[150];
+    checkPrimeNumber(N, arr);
+}
