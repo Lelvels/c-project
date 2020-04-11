@@ -1,0 +1,46 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+void gen(int A[], int n) {
+    ++A[n - 1];
+    for (int i = n - 1; i > 0; --i) {
+        if (A[i] > 1) {
+            ++A[i - 1];
+            A[i] -= 2;
+        }
+    }
+}
+
+void xuat(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i];
+    cout << endl;
+}
+
+int main() {
+    int n;
+    cout << "Nhap n: ";
+    cin >> n;
+    //Khởi tạo mảng
+    int* A = new int[n];
+    //Xây dựng cấu hình đầu tiên
+    for (int i = 0; i < n; i++) A[i] = 0;
+    //In cấu hình hiện tại và xây dựng cấu hình kế tiếp
+    for (int i = 0; i < pow(2, n); i++) {
+        xuat(A, n);
+        gen(A, n);
+    }
+}
+
+/* giải thích thuật toán phức tạp của hàm gen
+// khi i=0;n=3 -> chương trình xuất ra 000 và tăng A[2] = 1 -> ko thỏa mãn vòng lặp tiếp theo
+// khi i=1;n=3 -> chương trình xuất ra 001 và tăng A[2] = 2 -> A[1] tăng 1 đơn vị và A[2] giảm 2 đơn vị mảng thành 010
+// khi i=2;n=3 -> chương trình xuất ra 010 và tăng A[2] = 1 -> đến vòng lặp tiếp theo
+// khi i=3; n=3 -> chương trình xuất ra 011 và tăng A[2] = 2 -> A[1] tăng 1 đơn vị và A[2] giảm 2 đơn vị mảng thành 020 -> A[0] tăng 1 đơn vị và A[1] giảm 2 đơn vị mảng thành 100
+// cho đến khi lặp đủ 2^n-1 số lần, tức là tổng số TH, thì ta có tất cả kết quả,
+giải thích thế này, chương trình tăng số ở cuối mảng lên 1 đơn vị, nếu nó bằng 2, ta đưa số đó về 0, và tăng số tiếp theo đó,
+lặp lại đối với số tiếp theo đó như cái số cuối mảng, liên tục như vậy, ta có được tất cả kết quả ta muốn
+000->001->002->010->011->012->020->100->101->102->110->111
+
+bỏ qua các th có 2 đi -> kết quả*/
