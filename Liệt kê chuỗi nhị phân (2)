@@ -1,0 +1,56 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+void gen(int A[], int k) {
+    ++A[k - 1];
+    for (int i = k - 1; i > 0; --i) {
+        if (A[i] > 1) {
+            ++A[i - 1];
+            A[i] -= 2;
+        }
+    }
+}
+
+void xuat(int A[], int k, int n, int m) {
+    int count0 = 0;
+    int count1 = 0;
+
+    for (int i = 0; i < k; i++) {
+        if (A[i] == 0) count0++;
+        if (A[i] == 1) count1++;
+    }
+
+    if (count0 == n && count1 == m) {
+        for (int i = 0; i < k; i++) {
+            cout << A[i];
+       }
+    cout << endl;
+    }
+}
+
+int main() {
+    int n, m, k;
+    cin >> n;
+    cin >> m;
+    k = m + n;
+    //Khởi tạo mảng
+    int* A = new int[k];
+    //Xây dựng cấu hình đầu tiên
+    
+    for (int i = 0; i < n; i++) A[i] = 0;
+    for (int i = n; i < k; i++) A[i] = 1;
+    
+    //In cấu hình hiện tại và xây dựng cấu hình kế tiếp
+
+    for (int i = 0; i < pow(2, k); i++) {
+        xuat(A, k, n, m);
+        gen(A, k);
+    }
+}
+
+/*Cách làm bài này sẽ tương tự như bài liệt kê nhị phân, chỉ là ta thêm trong phần xây dựng cấu hình đầu tiên sao cho đúng theo điều kiện
+đề bài, còn lại ta làm như bài trước , chỉ là ta chỉ in ra khi số số 1 trong mảng = số số 1 theo điều kiện và tương tự với số 0
+ở đây , ta có 2 biến count0 và count1 để đếm số số 0 và số số 1, nếu đáp ứng điều kiện, ta sẽ thực hiện lệnh in, nếu ko thì loại trường hợp đó*/
+
+
