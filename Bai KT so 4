@@ -1,0 +1,121 @@
+#include<iostream>
+
+using namespace std;
+
+class DongXu{
+private:
+    int dong, xu;
+public:
+    DongXu(){
+        dong = 0;
+        xu = 0;
+    }
+    DongXu(int dong_, int xu_){
+        dong = dong_;
+        xu = xu_;
+    }
+
+    friend istream& operator>>(istream& is, DongXu& d){
+        is >> d.dong >> d.xu;
+        return is;
+    }
+
+    friend ostream& operator<<(ostream& os, const DongXu& d){
+        //quyChuan(d);
+        os << d.dong << " dong " << d.xu << " xu" << endl;
+        return os;
+    }
+
+    DongXu operator+(DongXu d){
+        quyChuan(d);
+        DongXu temp;
+        temp.dong = dong + d.dong;
+        temp.xu = xu + d.xu;
+        return temp;
+    }
+
+    DongXu operator-(DongXu d){
+        quyChuan(d);
+        DongXu temp;
+        temp.dong = dong - d.dong;
+        temp.xu = xu - d.xu;
+        return temp;
+    }
+
+    void quyChuan(DongXu& d){
+        if(xu > 100){
+            int old_xu = xu;
+            xu = xu % 100;
+            dong = (old_xu - xu)/100 + dong;
+        }
+    }
+
+    bool operator>(DongXu d){
+        quyChuan(d);
+        if(dong > d.dong){
+            return true;
+        } else if(dong == d.dong){
+            if(xu > d.xu){
+                return true;
+            } else if(xu == d.xu) {
+                return true;
+            } else if(xu < d.xu){
+                return false;
+            }
+        } else if(dong < d.dong){
+            return false;
+        }
+    }
+};
+
+void sort_dongxu(DongXu a[], int n){
+    DongXu sum;
+    for(int i=0; i< n; i++){
+        for(int j = i+1; j < n; j++){
+            if(a[i] > a[j]){
+                swap(a[i], a[j]);
+            }
+        }
+    }
+}
+
+DongXu tong(DongXu a[], int n){
+    DongXu result(0, 0);
+    for(int i=0; i<n; i++){
+        result = result + a[i];
+    }
+    result.quyChuan(result);
+    return result;
+}
+
+int main(){
+    DongXu mang[110];
+    int n;
+    cout << "Nhap n: " << endl;
+    cin >> n;
+    for(int i = 0; i < n; i++){
+        // cin >> mang[i].dong >> mang[i].xu;
+        cin >> mang[i];
+    }
+    for(int i = 0; i < n; i++){
+        // cin >> mang[i].dong >> mang[i].xu;
+        cout << mang[i];
+    }
+
+    cout << tong(mang, n);
+
+    cout << "Sap xep: " << endl;
+    sort_dongxu(mang, n);
+    for(int i = 0; i < n; i++){
+        // cin >> mang[i].dong >> mang[i].xu;
+        cout << mang[i];
+    }
+}
+
+
+
+
+
+
+
+
